@@ -75,7 +75,27 @@ package object SubsecuenciaMasLarga {
     }
     subsecuenciasInc
   }
-/*
+
+  def subsecuenciaIncrementalMasLarga(s: Secuencia): Subsecuencia = {
+    def subSecuenciasInc(s: Secuencia): Set[Subsecuencia] = {
+      val n = s.length
+      val todosLosSubindices = subindices(0, n)
+
+      val subsecuenciasInc = for {
+        subindice <- todosLosSubindices
+        if (incremental(subSecuenciaAsoc(s, subindice)))
+      } yield {
+        subSecuenciaAsoc(s, subindice)
+      }
+      subsecuenciasInc
+    }
+
+    val subsecuenciasIncrementales = subSecuenciasInc(s)
+    subsecuenciasIncrementales.maxBy(_.length)
+  }
+
+
+  /*
   def ssimlComenzandoEn(i: Int, s: Secuencia): Subsecuencia = {
 
     def ssimlAux(i: Int): Subsecuencia = {

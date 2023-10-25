@@ -75,7 +75,7 @@ package object SubsecuenciaMasLarga {
     }
     subsecuenciasInc
   }
-
+/*
   def ssimlComenzandoEn(i: Int, s: Secuencia): Subsecuencia = {
 
     def ssimlAux(i: Int): Subsecuencia = {
@@ -90,4 +90,32 @@ package object SubsecuenciaMasLarga {
 
     ssimlAux(i)
   }
+  */
+def ssimlComenzandoEn(i: Int, s: Secuencia): Subsecuencia = {
+
+  def ssimlAux(i: Int): Subsecuencia = {
+
+    if (i >= s.length) Seq()
+    else {
+      val mayores = for {
+        j <- i + 1 until s.length
+        if s(j) > s(i)
+      } yield ssimlAux(j)
+
+      val mejor = if (mayores.isEmpty) Seq() else mayores.maxBy(_.length)
+      s(i) +: mejor
+    }
+  }
+
+  ssimlAux(i)
+}
+
+
+  def subSecIncMasLargaV2(s: Secuencia): Subsecuencia = {
+    val subsecuencias = for {
+      i <- 0 until s.length
+    } yield ssimlComenzandoEn(i, s)
+    subsecuencias.maxBy(_.length)
+  }
+
 }
